@@ -1,0 +1,69 @@
+import os
+import csv
+
+
+khan_votes = 0
+correy_votes = 0
+li_votes = 0
+otooley_votes = 0
+candidates = ["Khan", "Correy", "Li","O'Tooley"]
+votes = [khan_votes, correy_votes,li_votes,otooley_votes]
+
+with open("../Instructions/Pypoll/Resources/election_data.csv", "r") as election_data:
+    csvreader = csv.reader(election_data, delimiter=',')
+    header = next(csvreader)
+   # Count the Voter ID's and store in total_votes
+    total_vote = 0
+    for row in csvreader:
+        total_vote +=1
+        if row[2] == "Khan": 
+            khan_votes +=1
+        elif row[2] == "Correy":
+            correy_votes +=1
+        elif row[2] == "Li": 
+            li_votes +=1
+        elif row[2] == "O'Tooley":
+            otooley_votes +=1
+
+dictionary = dict(zip(candidates,votes))
+khan_percent = (khan_votes/total_vote) *100
+correy_percent = (correy_votes/total_vote) * 100
+li_percent = (li_votes/total_vote)* 100
+otooley_percent = (otooley_votes/total_vote) * 100
+
+print(f"Election Results")
+print(f"----------------------------")
+print(f"Total Votes: {total_vote}")
+print(f"----------------------------")
+print(f"Khan: {khan_percent:.3f}% ({khan_votes})")
+print(f"Correy: {correy_percent:.3f}% ({correy_votes})")
+print(f"Li: {li_percent:.3f}% ({li_votes})")
+print(f"O'Tooley: {otooley_percent:.3f}% ({otooley_votes})")
+print(f"----------------------------")
+winer = max(dictionary, key= dictionary.get)
+print(f"Winner: {winer}")
+print(f"----------------------------")
+#output
+output_file = os.path.join("election_data.csv")
+with open(output_file, "w", newline="") as datafile:
+    datafile.write(f"Election Results")
+    datafile.write("\n")
+    datafile.write(f"----------------------------")
+    datafile.write("\n")
+    datafile.write(f"Total Votes: {total_vote}")
+    datafile.write("\n")
+    datafile.write(f"----------------------------")
+    datafile.write("\n")
+    datafile.write(f"Khan: {khan_percent}% ({khan_votes})")
+    datafile.write("\n")
+    datafile.write(f"Correy: {correy_percent}% ({correy_votes})")
+    datafile.write("\n")
+    datafile.write(f"Li: {li_percent}% ({li_votes})")
+    datafile.write("\n")
+    datafile.write(f"O'Tooley: {otooley_percent}% ({otooley_votes})")
+    datafile.write("\n")
+    datafile.write(f"----------------------------")
+    datafile.write("\n")
+    datafile.write(f"Winner: {winer}")
+    datafile.write("\n")
+    datafile.write(f"----------------------------")
